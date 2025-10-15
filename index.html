@@ -100,7 +100,9 @@ async function loadProducts(){
   const rows=await fetchSheet(ITEM_SHEET);
   return rows.map(r=>{
     const c=r.c||[];
-    return {sku:(c[0]?.f??String(c[0]?.v??"")).trim(),name:(c[1]?.f??String(c[1]?.v??"")).trim()};
+    const sku  = String(c[0]?.f ?? c[0]?.v ?? "").trim();
+      const name = String(c[1]?.f ?? c[1]?.v ?? "").trim();
+      return { sku, name };
   }).filter(x=>x.sku&&x.name);
 }
 
